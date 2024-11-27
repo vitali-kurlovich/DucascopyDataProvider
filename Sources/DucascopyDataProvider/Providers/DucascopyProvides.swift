@@ -23,6 +23,10 @@ extension DucascopyProvides {
     static var quotesProvider: QuotesProvider {
         .init(urlSession: URLSession.shared)
     }
+    
+    static var ticksProvider: TicksProvider {
+        TicksProvider(Self.quotesProvider)
+    }
 }
 
 private extension URL {
