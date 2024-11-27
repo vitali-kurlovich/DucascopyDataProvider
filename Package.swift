@@ -20,7 +20,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/vitali-kurlovich/DataProvider", from: "1.0.0"),
         .package(url: "https://github.com/vitali-kurlovich/DukascopyDecoder", from: "1.0.0"),
-        .package(url: "https://github.com/apple/swift-async-algorithms", from: "1.0.0"),
+        .package(url: "https://github.com/vitali-kurlovich/DukascopyModel.git", from: "1.7.1"),
         //
     ],
 
