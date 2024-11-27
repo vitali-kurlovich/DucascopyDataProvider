@@ -10,7 +10,7 @@ import Foundation
 import HTTPTypes
 
 public
-enum DucascopyProvides : Sendable {}
+enum DucascopyProvides: Sendable {}
 
 public
 extension DucascopyProvides {
@@ -26,6 +26,10 @@ extension DucascopyProvides {
 
     static var ticksProvider: TicksProvider {
         TicksProvider(quotesProvider)
+    }
+
+    static var candlesProvider: CandlesProvider {
+        CandlesProvider(quotesProvider)
     }
 }
 

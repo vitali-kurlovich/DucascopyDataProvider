@@ -3,7 +3,7 @@ import Foundation
 import HTTPTypes
 
 public
-struct InstrumentsCollectionProvider<RequestProvider: HTTPRequestProvider & Sendable >: DataProvider {
+struct InstrumentsCollectionProvider<RequestProvider: HTTPRequestProvider & Sendable>: DataProvider {
     public typealias Result = InstrumentsCollection
     public typealias ProviderError = DataProviderError
 

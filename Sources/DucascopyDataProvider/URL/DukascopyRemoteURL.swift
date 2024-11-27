@@ -5,17 +5,13 @@
 //  Created by Vitali Kurlovich on 27.11.24.
 //
 
+import DukascopyModel
 import Foundation
 
 /*
  https://datafeed.dukascopy.com/datafeed/ACFREUR/2020/03/05/BID_candles_min_1.bi5
  https://datafeed.dukascopy.com/datafeed/ACFREUR/2020/03/18/09h_ticks.bi5
  */
-
-public enum PriceType: Hashable, Sendable {
-    case ask
-    case bid
-}
 
 public enum Format: Hashable, Sendable {
     case ticks
@@ -39,7 +35,7 @@ struct DukascopyRemoteURL {
 }
 
 extension DukascopyRemoteURL {
-    func quotes(format: Format, for filename: String, date: Date) -> (url: URL, range:DateInterval, file: String, dir: String) {
+    func quotes(format: Format, for filename: String, date: Date) -> (url: URL, range: DateInterval, file: String, dir: String) {
         let comps = calendar.dateComponents([.year, .month, .day, .hour], from: date)
 
         return quotes(format: format, for: filename, year: comps.year!, month: comps.month!, day: comps.day!, hour: comps.hour!)
@@ -141,8 +137,8 @@ extension DukascopyRemoteURL {
         let baseUrl = "\(baseUrl)/\(file_dir)\(file_name)"
         let url = URL(string: baseUrl)!
 
-       let range = DateInterval(start: lowerDate, end: upperDate)
-        
+        let range = DateInterval(start: lowerDate, end: upperDate)
+
         return (url: url, range: range, file: file_name, dir: file_dir)
     }
 }
