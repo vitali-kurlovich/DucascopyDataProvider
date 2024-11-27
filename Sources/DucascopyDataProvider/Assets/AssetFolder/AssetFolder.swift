@@ -56,6 +56,7 @@ extension AssetFolder {
     }
 }
 
+public
 extension [AssetFolder] {
     init(_ collection: InstrumentsCollection) {
         let groups = collection.groups
