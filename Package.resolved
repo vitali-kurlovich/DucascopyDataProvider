@@ -1,0 +1,24 @@
+{
+  "originHash" : "4d856f5ad9257c271498c4fbb46aea9dd5ba4e812c5e186dc76d29133b548d34",
+  "pins" : [
+    {
+      "identity" : "dataprovider",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vitali-kurlovich/DataProvider",
+      "state" : {
+        "revision" : "8f5c3c6179fa790481c5be0f3f2cddbdb1c197af",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swift-http-types",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-http-types.git",
+      "state" : {
+        "revision" : "ef18d829e8b92d731ad27bb81583edd2094d1ce3",
+        "version" : "1.3.1"
+      }
+    }
+  ],
+  "version" : 3
+}
