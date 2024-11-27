@@ -10,20 +10,20 @@ import Foundation
 import HTTPTypes
 
 public
-enum DucascopyProvides {
-    
-}
+enum DucascopyProvides {}
 
 public
 extension DucascopyProvides {
     typealias InstrumentsProvider = InstrumentsCollectionProvider<URLRequestProvider>
 
     static var instrumentsCollectionProvider: InstrumentsProvider {
-        InstrumentsProvider(.init(url: .ducascopyURL))
+        InstrumentsProvider(.init(url: .ducascopyURL), urlSession: URLSession.shared)
+    }
+
+    static var quotesProvider: QuotesProvider {
+        .init(urlSession: URLSession.shared)
     }
 }
-
-
 
 private extension URL {
     static var ducascopyURL: URL {
