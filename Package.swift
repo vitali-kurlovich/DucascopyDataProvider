@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "DucascopyDataProvider",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v16),
         .macOS(.v13),
         .tvOS(.v13),
     ],
