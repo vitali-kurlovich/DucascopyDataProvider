@@ -37,8 +37,6 @@ public struct QuoteData: Equatable, Sendable {
     }
 }
 
-
-
 public
 struct QuotesProvider: ParametredDataProvider {
     public typealias Params = QuotesRequest

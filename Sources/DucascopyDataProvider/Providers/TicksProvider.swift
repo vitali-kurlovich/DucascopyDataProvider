@@ -11,13 +11,29 @@ import DukascopyModel
 import Foundation
 import HTTPTypes
 
-public struct TicksRequest {
+public struct TicksRequest: Equatable {
     public let filename: String
     public let range: Range<Date>
+    public let pipValue: Double
 
-    public init(filename: String, range: Range<Date>) {
+    public init(filename: String, range: Range<Date>, pipValue: Double) {
         self.filename = filename
         self.range = range
+        self.pipValue = pipValue
+    }
+}
+
+public
+extension TicksRequest {
+    init(_ info: InstrumetInfo, range: Range<Date>) {
+        let filename = info.fileInfo.filename
+        let pipValue = info.pipValue
+
+        self.init(filename: filename, range: range, pipValue: pipValue)
+    }
+
+    init(_ asset: Asset, range: Range<Date>) {
+        self.init(asset.info, range: range)
     }
 }
 
@@ -27,7 +43,7 @@ struct TicksProvider: ParametredDataProvider {
 
     public typealias Params = TicksRequest
 
-    public typealias Result = [Swift.Result<TicksContainer, DataProviderError>]
+    public typealias Result = [Swift.Result<QuoteTicksContainer, DataProviderError>]
 
     public let quotesProvider: QuotesProvider
 
@@ -47,7 +63,9 @@ struct TicksProvider: ParametredDataProvider {
                 case let .success(quote):
                     do {
                         let ticksContainer = try decoder.decode(in: quote.range, with: quote.data)
-                        return .success(ticksContainer)
+
+                        let container = QuoteTicksContainer(container: ticksContainer, pipValue: params.pipValue)
+                        return .success(container)
                     } catch {
                         return .failure(DataProviderError(error: error))
                     }
