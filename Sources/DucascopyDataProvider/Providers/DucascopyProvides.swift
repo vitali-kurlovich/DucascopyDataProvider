@@ -10,7 +10,7 @@ import Foundation
 import HTTPTypes
 
 public
-enum DucascopyProvides {}
+enum DucascopyProvides : Sendable {}
 
 public
 extension DucascopyProvides {

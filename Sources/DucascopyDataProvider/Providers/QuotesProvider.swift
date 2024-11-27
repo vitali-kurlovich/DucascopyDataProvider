@@ -38,7 +38,7 @@ public struct QuoteData: Equatable, Sendable {
 }
 
 public
-struct QuotesProvider: ParametredDataProvider {
+struct QuotesProvider:  Hashable, Sendable, ParametredDataProvider {
     public typealias Params = QuotesRequest
 
     public typealias Result = [Swift.Result<QuoteData, DataProviderError>]

@@ -38,7 +38,7 @@ extension TicksRequest {
 }
 
 public
-struct TicksProvider: ParametredDataProvider {
+struct TicksProvider:  Hashable, Sendable, ParametredDataProvider {
     public typealias ProviderError = Never
 
     public typealias Params = TicksRequest
