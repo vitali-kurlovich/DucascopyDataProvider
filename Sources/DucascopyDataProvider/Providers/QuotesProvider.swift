@@ -12,9 +12,9 @@ import HTTPTypes
 public struct QuotesRequest: Hashable, Sendable {
     public let format: Format
     public let filename: String
-    public let range: Range<Date>
+    public let range: DateInterval
 
-    public init(format: Format, filename: String, range: Range<Date>) {
+    public init(format: Format, filename: String, range: DateInterval) {
         self.format = format
         self.filename = filename
         self.range = range
@@ -29,9 +29,9 @@ public struct QuotesRequest: Hashable, Sendable {
 
 public struct QuoteData: Equatable, Sendable {
     public let data: Data
-    public let range: Range<Date>
+    public let range: DateInterval
 
-    public init(data: Data, range: Range<Date>) {
+    public init(data: Data, range: DateInterval) {
         self.data = data
         self.range = range
     }

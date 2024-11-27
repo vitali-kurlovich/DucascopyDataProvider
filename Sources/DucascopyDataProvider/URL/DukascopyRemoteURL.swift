@@ -39,7 +39,7 @@ struct DukascopyRemoteURL {
 }
 
 extension DukascopyRemoteURL {
-    func quotes(format: Format, for filename: String, date: Date) -> (url: URL, range: Range<Date>, file: String, dir: String) {
+    func quotes(format: Format, for filename: String, date: Date) -> (url: URL, range:DateInterval, file: String, dir: String) {
         let comps = calendar.dateComponents([.year, .month, .day, .hour], from: date)
 
         return quotes(format: format, for: filename, year: comps.year!, month: comps.month!, day: comps.day!, hour: comps.hour!)
@@ -47,16 +47,16 @@ extension DukascopyRemoteURL {
 }
 
 extension DukascopyRemoteURL {
-    func quotes(format: Format, for filename: String, range: Range<Date>) -> [(url: URL, range: Range<Date>, file: String, dir: String)] {
+    func quotes(format: Format, for filename: String, range: DateInterval) -> [(url: URL, range: DateInterval, file: String, dir: String)] {
         precondition(!filename.isEmpty, "currency can't be empty")
 
-        let lowerComps = calendar.dateComponents([.year, .month, .day, .hour], from: range.lowerBound)
-        let upperComps = calendar.dateComponents([.year, .month, .day, .hour], from: range.upperBound)
+        let lowerComps = calendar.dateComponents([.year, .month, .day, .hour], from: range.start)
+        let upperComps = calendar.dateComponents([.year, .month, .day, .hour], from: range.end)
 
         let lower = calendar.date(from: lowerComps)!
         let upper = calendar.date(from: upperComps)!
 
-        var urls = [(url: URL, range: Range<Date>, file: String, dir: String)]()
+        var urls = [(url: URL, range: DateInterval, file: String, dir: String)]()
 
         var current = lower
 
@@ -95,7 +95,7 @@ extension DukascopyRemoteURL {
 
 private
 extension DukascopyRemoteURL {
-    func quotes(format: Format, for filename: String, year: Int, month: Int, day: Int, hour: Int = 0) -> (url: URL, range: Range<Date>, file: String, dir: String) {
+    func quotes(format: Format, for filename: String, year: Int, month: Int, day: Int, hour: Int = 0) -> (url: URL, range: DateInterval, file: String, dir: String) {
         let filename = filename.uppercased()
 
         var comps = DateComponents()
@@ -141,7 +141,9 @@ extension DukascopyRemoteURL {
         let baseUrl = "\(baseUrl)/\(file_dir)\(file_name)"
         let url = URL(string: baseUrl)!
 
-        return (url: url, range: lowerDate ..< upperDate, file: file_name, dir: file_dir)
+       let range = DateInterval(start: lowerDate, end: upperDate)
+        
+        return (url: url, range: range, file: file_name, dir: file_dir)
     }
 }
 

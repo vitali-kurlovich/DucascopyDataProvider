@@ -13,10 +13,10 @@ import HTTPTypes
 
 public struct TicksRequest: Hashable, Sendable {
     public let filename: String
-    public let range: Range<Date>
+    public let range: DateInterval
     public let pipValue: Double
 
-    public init(filename: String, range: Range<Date>, pipValue: Double) {
+    public init(filename: String, range: DateInterval, pipValue: Double) {
         self.filename = filename
         self.range = range
         self.pipValue = pipValue
@@ -25,14 +25,14 @@ public struct TicksRequest: Hashable, Sendable {
 
 public
 extension TicksRequest {
-    init(_ info: InstrumetInfo, range: Range<Date>) {
+    init(_ info: InstrumetInfo, range: DateInterval) {
         let filename = info.fileInfo.filename
         let pipValue = info.pipValue
 
         self.init(filename: filename, range: range, pipValue: pipValue)
     }
 
-    init(_ asset: Asset, range: Range<Date>) {
+    init(_ asset: Asset, range: DateInterval) {
         self.init(asset.info, range: range)
     }
 }
