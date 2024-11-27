@@ -47,6 +47,14 @@ extension AssetFolder {
 
 public
 extension AssetFolder {
+ 
+    var isEmpty: Bool {
+        allAssets.isEmpty && folders.isEmpty
+    }
+}
+
+public
+extension AssetFolder {
     var allAssets: [Asset] {
         extractAllAssets(from: self)
     }
@@ -87,6 +95,8 @@ extension [AssetFolder] {
                 let title = group.title
 
                 return AssetFolder(title: title, path: path, folders: folders, assets: assets)
+            }.filter { folder in
+                !folder.isEmpty
             }
         }
 
@@ -101,6 +111,8 @@ extension [AssetFolder] {
             let assets = groupAssets(for: group, basePath: path)
 
             return AssetFolder(title: group.title, path: path, folders: folders, assets: assets)
+        }.filter {  folder in
+            !folder.isEmpty
         }
 
         self.init(folders)
