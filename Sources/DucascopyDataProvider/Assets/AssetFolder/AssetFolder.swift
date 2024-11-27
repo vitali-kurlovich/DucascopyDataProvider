@@ -47,7 +47,6 @@ extension AssetFolder {
 
 public
 extension AssetFolder {
- 
     var isEmpty: Bool {
         allAssets.isEmpty && folders.isEmpty
     }
@@ -111,7 +110,7 @@ extension [AssetFolder] {
             let assets = groupAssets(for: group, basePath: path)
 
             return AssetFolder(title: group.title, path: path, folders: folders, assets: assets)
-        }.filter {  folder in
+        }.filter { folder in
             !folder.isEmpty
         }
 

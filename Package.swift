@@ -19,9 +19,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/vitali-kurlovich/DataProvider", from: "1.0.0"),
-        .package(url: "https://github.com/vitali-kurlovich/DukascopyDecoder", from: "1.0.0"),
-        .package(url: "https://github.com/vitali-kurlovich/DukascopyModel.git", from: "1.7.1"),
-        //
+        .package(url: "https://github.com/vitali-kurlovich/DukascopyDecoder", from: "2.8.0"),
+        .package(url: "https://github.com/vitali-kurlovich/DukascopyModel.git", from: "1.14.0"),
     ],
 
     targets: [
@@ -31,6 +30,8 @@ let package = Package(
             name: "DucascopyDataProvider",
             dependencies: [
                 "DataProvider",
+                "DukascopyDecoder",
+                "DukascopyModel",
             ]
         ),
         .testTarget(

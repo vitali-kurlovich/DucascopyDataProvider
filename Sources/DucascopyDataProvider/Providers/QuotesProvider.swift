@@ -8,8 +8,6 @@
 import DataProvider
 import Foundation
 import HTTPTypes
-import DukascopyModel
-import DukascopyDecoder
 
 public struct QuotesRequest {
     public let format: Format
@@ -37,63 +35,6 @@ public struct QuoteData: Equatable, Sendable {
         self.data = data
         self.range = range
     }
-}
-
-public struct TicksRequest {
-    public let filename: String
-    public let range: Range<Date>
-    
-    public init(filename: String, range: Range<Date>) {
-        self.filename = filename
-        self.range = range
-    }
-}
-
-public
-struct TicksProvider: ParametredDataProvider {
-   
-    
-    public typealias ProviderError = Never
-    
-    public typealias Params = TicksRequest
-    
-    public typealias Result = [Swift.Result<TicksContainer, DataProviderError>]
-    
-    public let quotesProvider: QuotesProvider
-
-    public init(_ quotesProvider: QuotesProvider) {
-        self.quotesProvider = quotesProvider
-    }
-    
-    public func fetch(_ params: TicksRequest) async throws(ProviderError) -> Result {
-        let decoder = TicksDecoder()
-        
-       let request = QuotesRequest(format: .ticks, filename: params.filename, range: params.range)
-        
-      return  quotesProvider.map { results in
-            
-            results.map { result -> Result.Element in
-                switch result {
-                case let .success(quote):
-                    do {
-                        let ticksContainer = try decoder.decode(in: quote.range, with: quote.data)
-                        return .success( ticksContainer )
-                    } catch {
-                    
-                        return .failure( DataProviderError(error) )
-                    }
-                case let .failure(error):
-                    return .failure(error)
-                }
-            }
-            
-        }.fetch(request)
-        
-        
-      //  quotesProvider
-       
-    }
-    
 }
 
 
