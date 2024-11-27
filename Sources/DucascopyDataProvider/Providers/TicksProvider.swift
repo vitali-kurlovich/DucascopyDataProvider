@@ -52,16 +52,14 @@ struct TicksProvider: ParametredDataProvider {
     }
 
     public func fetch(_ params: TicksRequest) async throws(ProviderError) -> Result {
-        let decoder = TicksDecoder()
-
         let request = QuotesRequest(format: .ticks, filename: params.filename, range: params.range)
 
         return await quotesProvider.map { results in
-
             results.map { result -> Result.Element in
                 switch result {
                 case let .success(quote):
                     do {
+                        let decoder = TicksDecoder()
                         let ticksContainer = try decoder.decode(in: quote.range, with: quote.data)
 
                         let container = QuoteTicksContainer(container: ticksContainer, pipValue: params.pipValue)

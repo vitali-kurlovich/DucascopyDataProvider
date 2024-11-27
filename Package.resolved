@@ -1,5 +1,5 @@
 {
-  "originHash" : "be1143bc13ec23d05a4369494c6e7df2a2e040563be66c07342ada8a8fd3eda4",
+  "originHash" : "0c0989315d7cd0c3edafcbf9c98314a1f1f89b45a7e25f1c969b95f465143159",
   "pins" : [
     {
       "identity" : "bitbytedata",
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vitali-kurlovich/DukascopyModel.git",
       "state" : {
-        "revision" : "c796d1a42e12bfebff5c057efa01b00574ad7d74",
-        "version" : "1.15.0"
+        "revision" : "412d47cee1d76568107dea5923713bd0a15d0c54",
+        "version" : "1.16.0"
       }
     },
     {
