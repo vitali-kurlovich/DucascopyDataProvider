@@ -1,5 +1,5 @@
 {
-  "originHash" : "fe0f9ead8fa5a2a90d0c4755c9315ae1c8fb12d8597676997f75cdaafa97d302",
+  "originHash" : "be1143bc13ec23d05a4369494c6e7df2a2e040563be66c07342ada8a8fd3eda4",
   "pins" : [
     {
       "identity" : "bitbytedata",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vitali-kurlovich/DukascopyDecoder",
       "state" : {
-        "revision" : "842813f76e1e3bb7805535502578a73808ee7c2e",
-        "version" : "2.8.1"
+        "revision" : "675039e9133d6000d7889cd6f23cb0f038dc308b",
+        "version" : "2.9.1"
       }
     },
     {

@@ -12,12 +12,12 @@ import Foundation
  https://datafeed.dukascopy.com/datafeed/ACFREUR/2020/03/18/09h_ticks.bi5
  */
 
-public enum PriceType {
+public enum PriceType: Hashable, Sendable {
     case ask
     case bid
 }
 
-public enum Format {
+public enum Format: Hashable, Sendable {
     case ticks
     case candles(PriceType)
 }

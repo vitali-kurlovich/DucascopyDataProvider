@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct InstrumetInfo: Hashable {
+public struct InstrumetInfo: Hashable, Sendable {
     public let title: String
     public let name: String
     public let description: String
@@ -43,7 +43,7 @@ extension InstrumetInfo {
     }
 }
 
-public struct InstrumetCurrency: Hashable {
+public struct InstrumetCurrency: Hashable, Sendable {
     public let base: String
     public let quote: String
 }
@@ -54,7 +54,7 @@ extension InstrumetCurrency {
     }
 }
 
-public struct InstrumetHistoryFileInfo: Hashable {
+public struct InstrumetHistoryFileInfo: Hashable, Sendable {
     public let filename: String
     public let historyDate: InstrumetHistoryDate
 }
@@ -67,7 +67,7 @@ extension InstrumetHistoryFileInfo {
     }
 }
 
-public struct InstrumetHistoryDate: Hashable {
+public struct InstrumetHistoryDate: Hashable, Sendable {
     public let start_tick: Date
     public let start_10sec: Date
     public let start_60sec: Date

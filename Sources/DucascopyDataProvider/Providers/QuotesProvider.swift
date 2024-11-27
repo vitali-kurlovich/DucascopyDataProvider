@@ -9,7 +9,7 @@ import DataProvider
 import Foundation
 import HTTPTypes
 
-public struct QuotesRequest {
+public struct QuotesRequest: Hashable, Sendable {
     public let format: Format
     public let filename: String
     public let range: Range<Date>

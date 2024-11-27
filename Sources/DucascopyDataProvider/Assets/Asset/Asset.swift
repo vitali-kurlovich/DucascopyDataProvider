@@ -5,7 +5,7 @@
 //  Created by Vitali Kurlovich on 15.11.24.
 //
 
-public struct Asset: Hashable {
+public struct Asset: Hashable, Sendable {
     public let id: String
     public let path: AssetPath
     public let info: InstrumetInfo

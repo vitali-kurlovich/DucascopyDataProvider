@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Instrumet: Decodable {
+public struct Instrumet: Decodable, Sendable {
     public let title: String
     public let name: String
     public let description: String

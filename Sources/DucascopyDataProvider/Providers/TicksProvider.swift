@@ -11,7 +11,7 @@ import DukascopyModel
 import Foundation
 import HTTPTypes
 
-public struct TicksRequest: Equatable {
+public struct TicksRequest: Hashable, Sendable {
     public let filename: String
     public let range: Range<Date>
     public let pipValue: Double

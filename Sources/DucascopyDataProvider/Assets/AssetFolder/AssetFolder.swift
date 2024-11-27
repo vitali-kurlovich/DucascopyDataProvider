@@ -6,7 +6,7 @@
 //
 
 public
-struct AssetFolder: Hashable {
+struct AssetFolder: Hashable, Sendable {
     public let title: String
     public let path: AssetPath
     public let folders: [AssetFolder]
