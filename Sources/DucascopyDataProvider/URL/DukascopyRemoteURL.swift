@@ -18,12 +18,8 @@ public enum Format: Hashable, Sendable {
     case candles(PriceType)
 }
 
+public
 struct DukascopyRemoteURL {
-    public
-    enum FactoryError: Error {
-        case invalidDateRange
-    }
-
     private let baseUrl: String
     private let infoUrl: String
 
@@ -34,16 +30,18 @@ struct DukascopyRemoteURL {
     }
 }
 
+public
 extension DukascopyRemoteURL {
-    func quotes(format: Format, for filename: String, date: Date) -> (url: URL, range: DateInterval, file: String, dir: String) {
+    func quotes(format: Format, for filename: String, date: Date) -> (url: URL, info: ResolvedFilePath) {
         let comps = calendar.dateComponents([.year, .month, .day, .hour], from: date)
 
         return quotes(format: format, for: filename, year: comps.year!, month: comps.month!, day: comps.day!, hour: comps.hour!)
     }
 }
 
+public
 extension DukascopyRemoteURL {
-    func quotes(format: Format, for filename: String, range: DateInterval) -> [(url: URL, range: DateInterval, file: String, dir: String)] {
+    func quotes(format: Format, for filename: String, range: DateInterval) -> [(url: URL, info: ResolvedFilePath)] {
         precondition(!filename.isEmpty, "currency can't be empty")
 
         let lowerComps = calendar.dateComponents([.year, .month, .day, .hour], from: range.start)
@@ -52,7 +50,7 @@ extension DukascopyRemoteURL {
         let lower = calendar.date(from: lowerComps)!
         let upper = calendar.date(from: upperComps)!
 
-        var urls = [(url: URL, range: DateInterval, file: String, dir: String)]()
+        var urls = [(url: URL, info: ResolvedFilePath)]()
 
         var current = lower
 
@@ -91,55 +89,13 @@ extension DukascopyRemoteURL {
 
 private
 extension DukascopyRemoteURL {
-    func quotes(format: Format, for filename: String, year: Int, month: Int, day: Int, hour: Int = 0) -> (url: URL, range: DateInterval, file: String, dir: String) {
-        let filename = filename.uppercased()
-
-        var comps = DateComponents()
-        comps.year = year
-        comps.day = day
-        comps.month = month
-
-        let lowerDate: Date
-        let upperDate: Date
-
-        let file_name: String
-
-        let file_dir = String(format: "\(filename)/%d/%02d/%02d/", year, month - 1, day)
-
-        switch format {
-        case .ticks:
-
-            file_name = String(format: "%02dh_ticks.bi5", hour)
-
-            comps.hour = hour
-
-            lowerDate = calendar.date(from: comps)!
-
-            let hour = DateComponents(hour: 1)
-            upperDate = calendar.date(byAdding: hour, to: lowerDate)!
-
-        case let .candles(type):
-
-            switch type {
-            case .ask:
-                file_name = "ASK_candles_min_1.bi5"
-
-            case .bid:
-                file_name = "BID_candles_min_1.bi5"
-            }
-
-            lowerDate = calendar.date(from: comps)!
-
-            let day = DateComponents(day: 1)
-            upperDate = calendar.date(byAdding: day, to: lowerDate)!
-        }
-
-        let baseUrl = "\(baseUrl)/\(file_dir)\(file_name)"
+    func quotes(format: Format, for filename: String, year: Int, month: Int, day: Int, hour: Int = 0) -> (url: URL, info: ResolvedFilePath) {
+        let pathResolver = DukascopyFilePathResolver()
+        let path = pathResolver.quotes(format: format, for: filename, year: year, month: month, day: day, hour: hour)
+        let baseUrl = "\(baseUrl)\(path.basePath)"
         let url = URL(string: baseUrl)!
 
-        let range = DateInterval(start: lowerDate, end: upperDate)
-
-        return (url: url, range: range, file: file_name, dir: file_dir)
+        return (url: url, info: path)
     }
 }
 

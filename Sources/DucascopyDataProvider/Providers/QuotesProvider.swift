@@ -22,9 +22,7 @@ public struct QuotesRequest: Hashable, Sendable {
 }
 
 /*
-
  (url: URL, range: Range<Date>, file: String, dir: String)
-
  */
 
 public struct QuoteData: Equatable, Sendable {
@@ -52,25 +50,23 @@ struct QuotesProvider: Hashable, Sendable, ParametredDataProvider {
     }
 
     public func fetch(_ params: QuotesRequest) async throws(ProviderError) -> Result {
-        // let results = remoteURL.quotes(format: params.format, for: params.filename, range: params.range)
-
         do {
             return try await fetchGroup(params)
         } catch {}
 
         return []
     }
+}
 
-    private func fetchGroup(_ params: QuotesRequest) async throws -> [Swift.Result<QuoteData, DataProviderError>] {
-        let urlSession = self.urlSession
-
+private
+extension QuotesProvider {
+    func fetchGroup(_ params: QuotesRequest) async throws -> [Swift.Result<QuoteData, DataProviderError>] {
         let remoteURL = DukascopyRemoteURL()
-
         let results = remoteURL.quotes(format: params.format, for: params.filename, range: params.range)
 
         return try await withThrowingTaskGroup(of: Result.Element.self) { group in
 
-            for (url, range, _, _) in results {
+            for (url, info) in results {
                 group.addTask {
                     let requestProvider = BaseHTTPRequestProvider(url)
                     let request = requestProvider.request()
@@ -78,7 +74,7 @@ struct QuotesProvider: Hashable, Sendable, ParametredDataProvider {
 
                     do {
                         let data = try await sessionProvider.map { data, _ -> QuoteData in
-                            QuoteData(data: data, range: range)
+                            QuoteData(data: data, range: info.range)
                         }.fetch(request)
 
                         return .success(data)
