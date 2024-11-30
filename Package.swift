@@ -18,7 +18,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/vitali-kurlovich/DataProvider", from: "1.0.2"),
+        .package(url: "https://github.com/vitali-kurlovich/DataProvider", from: "1.0.4"),
         .package(url: "https://github.com/vitali-kurlovich/DukascopyDecoder", from: "2.9.3"),
         .package(url: "https://github.com/vitali-kurlovich/DukascopyModel.git", from: "1.18.0"),
     ],

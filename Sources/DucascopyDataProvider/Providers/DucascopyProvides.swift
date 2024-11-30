@@ -20,16 +20,25 @@ extension DucascopyProvides {
         InstrumentsProvider(.init(url: .ducascopyURL), urlSession: URLSession.shared)
     }
 
+    typealias QuotesProvider = CachedQuotesProvider<FileCacheStorage>
+
     static var quotesProvider: QuotesProvider {
-        .init(urlSession: URLSession.shared)
+        .init(urlSession: URLSession.shared, cacheStorage: quotesCacheStorage)
     }
 
-    static var ticksProvider: TicksProvider {
+    static var ticksProvider: TicksProvider<QuotesProvider> {
         TicksProvider(quotesProvider)
     }
 
-    static var candlesProvider: CandlesProvider {
+    static var candlesProvider: CandlesProvider<QuotesProvider> {
         CandlesProvider(quotesProvider)
+    }
+}
+
+private
+extension DucascopyProvides {
+    static var quotesCacheStorage: FileCacheStorage {
+        FileCacheStorage(cachePath: "History/Quotes")
     }
 }
 

@@ -2,38 +2,12 @@
 //  QuotesProvider.swift
 //  DucascopyDataProvider
 //
-//  Created by Vitali Kurlovich on 27.11.24.
+//  Created by Vitali Kurlovich on 30.11.24.
 //
 
 import DataProvider
 import Foundation
 import HTTPTypes
-
-public struct QuotesRequest: Hashable, Sendable {
-    public let format: Format
-    public let filename: String
-    public let range: DateInterval
-
-    public init(format: Format, filename: String, range: DateInterval) {
-        self.format = format
-        self.filename = filename
-        self.range = range
-    }
-}
-
-/*
- (url: URL, range: Range<Date>, file: String, dir: String)
- */
-
-public struct QuoteData: Equatable, Sendable {
-    public let data: Data
-    public let range: DateInterval
-
-    public init(data: Data, range: DateInterval) {
-        self.data = data
-        self.range = range
-    }
-}
 
 public
 struct QuotesProvider: Hashable, Sendable, ParametredDataProvider {

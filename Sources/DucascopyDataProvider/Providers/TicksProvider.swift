@@ -38,16 +38,21 @@ extension TicksRequest {
 }
 
 public
-struct TicksProvider: Hashable, Sendable, ParametredDataProvider {
+struct TicksProvider<Provider: ParametredDataProvider>: Sendable, ParametredDataProvider
+    where
+    Provider.Params == QuotesRequest,
+    Provider.Result == [Swift.Result<QuoteData, DataProviderError>],
+    Provider.ProviderError == Never
+{
     public typealias ProviderError = Never
 
     public typealias Params = TicksRequest
 
     public typealias Result = [Swift.Result<QuoteTicksContainer, DataProviderError>]
 
-    public let quotesProvider: QuotesProvider
+    public let quotesProvider: Provider
 
-    public init(_ quotesProvider: QuotesProvider) {
+    public init(_ quotesProvider: Provider) {
         self.quotesProvider = quotesProvider
     }
 

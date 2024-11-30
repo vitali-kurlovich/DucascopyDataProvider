@@ -39,16 +39,21 @@ extension CandlesRequest {
 }
 
 public
-struct CandlesProvider: Hashable, Sendable, ParametredDataProvider {
+struct CandlesProvider<Provider: ParametredDataProvider>: Sendable, ParametredDataProvider
+    where
+    Provider.Params == QuotesRequest,
+    Provider.Result == [Swift.Result<QuoteData, DataProviderError>],
+    Provider.ProviderError == Never
+{
     public typealias ProviderError = Never
 
     public typealias Params = CandlesRequest
 
     public typealias Result = [Swift.Result<QuoteCandlesContainer, DataProviderError>]
 
-    public let quotesProvider: QuotesProvider
+    public let quotesProvider: Provider
 
-    public init(_ quotesProvider: QuotesProvider) {
+    public init(_ quotesProvider: Provider) {
         self.quotesProvider = quotesProvider
     }
 
