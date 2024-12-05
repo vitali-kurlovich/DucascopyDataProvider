@@ -18,3 +18,9 @@ public struct QuotesRequest: Hashable, Sendable {
         self.range = range
     }
 }
+
+extension QuotesRequest: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        "\(self)"
+    }
+}

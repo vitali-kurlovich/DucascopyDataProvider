@@ -9,18 +9,14 @@ struct InstrumentsCollectionProvider<RequestProvider: HTTPRequestProvider & Send
     public typealias ProviderError = DataProviderError
 
     public let requestProvider: RequestProvider
-    public let urlSession: URLSession
+    public let sessionProvider: URLSessionProvider
 
-    public init(_ requestProvider: RequestProvider, urlSession: URLSession = .shared) {
+    public init(_ requestProvider: RequestProvider, sessionProvider: URLSessionProvider) {
         self.requestProvider = requestProvider
-        self.urlSession = urlSession
+        self.sessionProvider = sessionProvider
     }
 
     public func fetch() async throws(ProviderError) -> Result {
-        let logger = Logger(subsystem: "InstrumentsCollectionProvider", category: "Network")
-        let singposter = OSSignposter(logger: logger)
-        let sessionProvider = URLSessionProvider(urlSession: urlSession, logger: logger, signposter: singposter)
-
         let dataProvider = sessionProvider.map { data, _ -> Data in
             data.dropFirst("jsonp(".count).dropLast(")".count)
         }.decode(InstrumentsCollection.self)

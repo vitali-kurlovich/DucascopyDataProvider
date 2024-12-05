@@ -8,6 +8,7 @@
 import DataProvider
 import Foundation
 import HTTPTypes
+import OSLog
 
 public
 enum DucascopyProvides: Sendable {}
@@ -17,14 +18,10 @@ extension DucascopyProvides {
     typealias InstrumentsProvider = InstrumentsCollectionProvider<URLRequestProvider>
 
     static var instrumentsCollectionProvider: InstrumentsProvider {
-        InstrumentsProvider(.init(url: .ducascopyURL), urlSession: URLSession.shared)
+        InstrumentsProvider(.init(url: .ducascopyURL), sessionProvider: instrumentsSessionProvider)
     }
 
     typealias QuotesProvider = CachedQuotesProvider<FileCacheStorage>
-
-    static var quotesProvider: QuotesProvider {
-        .init(urlSession: URLSession.shared, cacheStorage: quotesCacheStorage)
-    }
 
     static var ticksProvider: TicksProvider<QuotesProvider> {
         TicksProvider(quotesProvider)
@@ -32,6 +29,23 @@ extension DucascopyProvides {
 
     static var candlesProvider: CandlesProvider<QuotesProvider> {
         CandlesProvider(quotesProvider)
+    }
+}
+
+private
+extension DucascopyProvides {
+    static var instrumentsSessionProvider: URLSessionProvider {
+        let logger = Logger(subsystem: "InstrumentsSessionProvider", category: "Network")
+        return URLSessionProvider(logger: logger)
+    }
+
+    static var quotesSessionProvider: URLSessionProvider {
+        let logger = Logger(subsystem: "QuotesSessionProvider", category: "Network")
+        return URLSessionProvider(logger: logger)
+    }
+
+    static var quotesProvider: QuotesProvider {
+        .init(sessionProvider: quotesSessionProvider, cacheStorage: quotesCacheStorage)
     }
 }
 
