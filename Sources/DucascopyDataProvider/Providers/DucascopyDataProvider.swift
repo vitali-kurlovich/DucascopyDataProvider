@@ -1,6 +1,7 @@
 import DataProvider
 import Foundation
 import HTTPTypes
+import OSLog
 
 public
 struct InstrumentsCollectionProvider<RequestProvider: HTTPRequestProvider & Sendable>: DataProvider {
@@ -16,7 +17,9 @@ struct InstrumentsCollectionProvider<RequestProvider: HTTPRequestProvider & Send
     }
 
     public func fetch() async throws(ProviderError) -> Result {
-        let sessionProvider = URLSessionProvider(urlSession: urlSession)
+        let logger = Logger(subsystem: "InstrumentsCollectionProvider", category: "Network")
+        let singposter = OSSignposter(logger: logger)
+        let sessionProvider = URLSessionProvider(urlSession: urlSession, logger: logger, signposter: singposter)
 
         let dataProvider = sessionProvider.map { data, _ -> Data in
             data.dropFirst("jsonp(".count).dropLast(")".count)

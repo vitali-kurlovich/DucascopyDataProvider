@@ -46,9 +46,7 @@ struct CandlesProvider<Provider: ParametredDataProvider>: Sendable, ParametredDa
     Provider.ProviderError == Never
 {
     public typealias ProviderError = Never
-
     public typealias Params = CandlesRequest
-
     public typealias Result = [Swift.Result<QuoteCandlesContainer, DataProviderError>]
 
     public let quotesProvider: Provider
