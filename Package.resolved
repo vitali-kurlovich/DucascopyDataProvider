@@ -1,5 +1,5 @@
 {
-  "originHash" : "ea179e43e2e6c22f3ef088de0eca8e4812452684e1276ac84e5e39d4ce3d0475",
+  "originHash" : "5cdaea41cd9b8c281265079b6b8fe62d12316125287225182ce808a5c7f84ecf",
   "pins" : [
     {
       "identity" : "bitbytedata",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vitali-kurlovich/DataProvider",
       "state" : {
-        "revision" : "74fc1b39866cba13e11327064d930b9b6c1a27ce",
-        "version" : "1.0.7"
+        "revision" : "b948426021e4a13aba381067abb18c48aa25fc96",
+        "version" : "1.0.8"
       }
     },
     {

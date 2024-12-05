@@ -34,14 +34,17 @@ extension DucascopyProvides {
 
 private
 extension DucascopyProvides {
+    static let sessionProviderPlugins = [RefererURLSessionProviderPlugin()]
+
     static var instrumentsSessionProvider: URLSessionProvider {
         let logger = Logger(subsystem: "InstrumentsSessionProvider", category: "Network")
-        return URLSessionProvider(logger: logger)
+
+        return URLSessionProvider(plugins: sessionProviderPlugins, logger: logger)
     }
 
     static var quotesSessionProvider: URLSessionProvider {
         let logger = Logger(subsystem: "QuotesSessionProvider", category: "Network")
-        return URLSessionProvider(logger: logger)
+        return URLSessionProvider(plugins: sessionProviderPlugins, logger: logger)
     }
 
     static var quotesProvider: QuotesProvider {
