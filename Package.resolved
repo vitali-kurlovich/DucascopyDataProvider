@@ -1,15 +1,6 @@
 {
-  "originHash" : "e0f84d635623e20fb8c8e3ac06b7454e6467528e0e21afde8a301ec2ba8311f9",
+  "originHash" : "626ffef20f8f3f05d708c90b89d94ba629b7a950f26bbca3eacb9893b480782c",
   "pins" : [
-    {
-      "identity" : "bitbytedata",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tsolomko/BitByteData",
-      "state" : {
-        "revision" : "cdcdc5177ad536cfb11b95c620f926a81014b7fe",
-        "version" : "2.0.4"
-      }
-    },
     {
       "identity" : "dataprovider",
       "kind" : "remoteSourceControl",
@@ -24,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vitali-kurlovich/DukascopyDecoder",
       "state" : {
-        "revision" : "cb28324b67e808581598599d4b3edbe7e99a93e0",
-        "version" : "2.9.3"
+        "revision" : "db71edb5a821dad57e89d48fa374757b9eb9c689",
+        "version" : "2.9.4"
       }
     },
     {
@@ -33,17 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vitali-kurlovich/DukascopyModel.git",
       "state" : {
-        "revision" : "3d8cd8c286b25a436acf01270d3370b3267e9cbc",
-        "version" : "1.18.0"
-      }
-    },
-    {
-      "identity" : "swcompression",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tsolomko/SWCompression.git",
-      "state" : {
-        "revision" : "390e0b0af8dd19a600005a242a89e570ff482e09",
-        "version" : "4.8.6"
+        "revision" : "cd8faf27f72a5f28fa75e6479d5a61ea6c853abf",
+        "version" : "1.19.0"
       }
     },
     {
