@@ -64,8 +64,7 @@ extension CachedQuotesProvider {
                 group.addTask {
                     let requestProvider = BaseHTTPRequestProvider(url)
                     let request = requestProvider.request()
-                    // let sessionProvider = URLSessionProvider(urlSession: urlSession)
-
+                   
                     do {
                         do {
                             let data = try await cacheStorage.read(info.basePath)
